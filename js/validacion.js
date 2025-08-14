@@ -1,39 +1,33 @@
 function showAlertSuccess() {
-  document.getElementById("alert-success").classList.add("show");
+    document.getElementById("alert-success").classList.add("show");
 }
 
 function showAlertError() {
-  document.getElementById("alert-danger").classList.add("show");
+    document.getElementById("alert-danger").classList.add("show");
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const nombre    = document.getElementById("nombre");
-  const apellido  = document.getElementById("apellido");
-  const email     = document.getElementById("email");
-  const password1 = document.getElementById("password1");
-  const password2 = document.getElementById("password2");
-  const terminos  = document.getElementById("terminos");
-  const regBtn    = document.getElementById("regBtn");
 
-  regBtn.addEventListener("click", function () {
-    document.getElementById("alert-success").classList.remove("show");
-    document.getElementById("alert-danger").classList.remove("show");
+document.getElementById("regBtn").addEventListener("click", function(e) {
+      e.preventDefault();
+    
+    let nombre = document.getElementById("nombre").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let pass1 = document.getElementById("password1").value;
+    let pass2 = document.getElementById("password2").value;
+    let terminos = document.getElementById("terminos").checked;
 
-    const campos = [nombre, apellido, email, password1, password2];
-    const hayVacios = campos.some(c => c.value.trim() === "");
-
-    const passLarga = password1.value.length >= 6;
-
-    const passIguales = password1.value === password2.value;
-
-    const aceptaTerminos = terminos.checked;
-
-    const esValido = !hayVacios && passLarga && passIguales && aceptaTerminos;
-
-    if (esValido) {
-      showAlertSuccess();
+    
+    if (
+        nombre === "" ||
+        email === "" ||
+        pass1 === "" ||
+        pass2 === "" ||
+        pass1.length < 6 ||
+        pass1 !== pass2 ||
+        !terminos
+    ) {
+        showAlertError();
     } else {
-      showAlertError();
+        showAlertSuccess();
     }
-  });
 });
